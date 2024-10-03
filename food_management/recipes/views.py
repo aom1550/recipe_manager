@@ -1,9 +1,16 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Recipe
 from .forms import RecipeForm
+from django.db.models import Q
 
 def recipe_list(request):
-    recipes = Recipe.objects.all()
+    search_query = request.GET.get('search', '')
+
+    if search_query:
+        recipes = Recipe.objects.filter(Q(name__icontains=search_query))
+    else:
+        recipes = Recipe.objects.all()
+
     return render(request, 'recipes/recipe_list.html', {'recipes': recipes})
 
 def add_recipe(request):
