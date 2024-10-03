@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>รายการอาหาร</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>รายการอาหาร</h1>
+        <a href="{% url 'add_recipe' %}" class="btn btn-primary">เพิ่มเมนู</a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ชื่อเมนู</th>
+                    <th>วัตถุดิบ</th>
+                    <th>วิธีทำ</th>
+                    <th>จัดการ</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for recipe in recipes %}
+                <tr>
+                    <td>{{ recipe.name }}</td>
+                    <td>{{ recipe.ingredients }}</td>
+                    <td>{{ recipe.instructions }}</td>
+                    <td>
+                        <a href="{% url 'edit_recipe' recipe.pk %}" class="btn btn-warning">แก้ไข</a>
+                        <a href="{% url 'delete_recipe' recipe.pk %}" class="btn btn-danger">ลบ</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
